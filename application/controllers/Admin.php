@@ -484,9 +484,9 @@ class Admin extends CI_Controller
 			$this->Log_history_model->create($data['log']);
 			$data['baru']['updated_at'] =	mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'));
 			$this->Data_Pegawai_model->update($id,$data['baru']);
-			redirect(base_url('pegawai'));
+			redirect(base_url('admin/beranda/'.$id));
 		}else{
-			redirect(base_url('pegawai'));
+			redirect(base_url('admin/beranda/'.$id));
 		}
 // IDMARIL EDIT
 	}
@@ -520,7 +520,7 @@ class Admin extends CI_Controller
 		);
 
 		$result = $this->Data_Pegawai_model->update($id,$data);
-		redirect(base_url('pegawai'));
+		redirect(base_url('admin/beranda/'.$id));
 	}
 
 	function input_data_pekerjaan($id)
@@ -563,7 +563,7 @@ class Admin extends CI_Controller
 		);
 
 		$result = $this->Data_Pegawai_model->update($id,$data);
-		redirect(base_url('pegawai'));
+		redirect(base_url('admin/beranda/'.$id));
 	}
 
 	function input_data_lainnya($id)
@@ -586,7 +586,7 @@ class Admin extends CI_Controller
 		);
 
 		$result = $this->Data_Pegawai_model->update($id,$data);
-		redirect(base_url('pegawai'));
+		redirect(base_url('admin/beranda/'.$id));
 	}
 
 	function input_pendidikan($id)
@@ -605,7 +605,7 @@ class Admin extends CI_Controller
 		);
 
 		$result = $this->Pendidikan_model->create($data);
-		redirect(base_url('pegawai'));
+		redirect(base_url('admin/beranda/'.$id));
 	}
 
 	function input_pelatihan($id)
@@ -624,7 +624,7 @@ class Admin extends CI_Controller
 		);
 
 		$result = $this->Pelatihan_model->create($data);
-		redirect(base_url('pegawai'));
+		redirect(base_url('admin/beranda/'.$id));
 		// $data_pelatihan = array(
   //       'id_pegawai' => $this->session->userdata('id'),
   //       'nama_pelatihan' => $nama_pelatihan,
@@ -639,7 +639,7 @@ class Admin extends CI_Controller
 
 		// $result_pelatiahan = $this->Pelatihan_model->create($data_pelatihan);
 		// $result_updated = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data_updated);
-		// redirect(base_url('pegawai'));
+		// redirect(base_url('admin/beranda/'.$id));
 	}
 
 	function input_ktp($id)
@@ -654,7 +654,7 @@ class Admin extends CI_Controller
 			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'lamp_ktp' => $config['file_name'].$this->upload->data('file_ext'));
 			$result = $this->Data_Pegawai_model->update($id,$data);
-			redirect(base_url('pegawai'));
+			redirect(base_url('admin/beranda/'.$id));
 		}
 
 		// $success = true;
@@ -674,7 +674,7 @@ class Admin extends CI_Controller
 		// 	var_dump($data);
 		// 	$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data);
 		// 	var_dump($result);
-		// 	redirect(base_url('pegawai'));
+		// 	redirect(base_url('admin/beranda/'.$id));
 		// }
 	}
 
@@ -690,7 +690,7 @@ class Admin extends CI_Controller
 			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'lamp_sk_kartap' => $config['file_name'].$this->upload->data('file_ext'));
 			$result = $this->Data_Pegawai_model->update($id,$data);
-			redirect(base_url('pegawai'));
+			redirect(base_url('admin/beranda/'.$id));
 		}
 	}
 
@@ -706,7 +706,7 @@ class Admin extends CI_Controller
 			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'lamp_sk_promut' => $config['file_name'].$this->upload->data('file_ext'));
 			$result = $this->Data_Pegawai_model->update($id,$data);
-			redirect(base_url('pegawai'));
+			redirect(base_url('admin/beranda/'.$id));
 		}
 	}
 
@@ -722,7 +722,7 @@ class Admin extends CI_Controller
 			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'lamp_kontrak' => $config['file_name'].$this->upload->data('file_ext'));
 			$result = $this->Data_Pegawai_model->update($id,$data);
-			redirect(base_url('pegawai'));
+			redirect(base_url('admin/beranda/'.$id));
 		}
 	}
 
@@ -738,7 +738,7 @@ class Admin extends CI_Controller
 			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'lamp_buku_nikah' => $config['file_name'].$this->upload->data('file_ext'));
 			$result = $this->Data_Pegawai_model->update($id,$data);
-			redirect(base_url('pegawai'));
+			redirect(base_url('admin/beranda/'.$id));
 		}
 	}
 
@@ -754,7 +754,7 @@ class Admin extends CI_Controller
 			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'lamp_kk' => $config['file_name'].$this->upload->data('file_ext'));
 			$result = $this->Data_Pegawai_model->update($id,$data);
-			redirect(base_url('pegawai'));
+			redirect(base_url('admin/beranda/'.$id));
 		}
 	}
 
@@ -770,7 +770,7 @@ class Admin extends CI_Controller
 			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'lamp_ktp_pasangan' => $config['file_name'].$this->upload->data('file_ext'));
 			$result = $this->Data_Pegawai_model->update($id,$data);
-			redirect(base_url('pegawai'));
+			redirect(base_url('admin/beranda/'.$id));
 		}
 	}
 
@@ -786,7 +786,7 @@ class Admin extends CI_Controller
 			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'lamp_akta_1' => $config['file_name'].$this->upload->data('file_ext'));
 			$result = $this->Data_Pegawai_model->update($id,$data);
-			redirect(base_url('pegawai'));
+			redirect(base_url('admin/beranda/'.$id));
 		}
 	}
 
@@ -802,7 +802,7 @@ class Admin extends CI_Controller
 			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'lamp_akta_2' => $config['file_name'].$this->upload->data('file_ext'));
 			$result = $this->Data_Pegawai_model->update($id,$data);
-			redirect(base_url('pegawai'));
+			redirect(base_url('admin/beranda/'.$id));
 		}
 	}
 
@@ -818,7 +818,7 @@ class Admin extends CI_Controller
 			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'lamp_akta_3' => $config['file_name'].$this->upload->data('file_ext'));
 			$result = $this->Data_Pegawai_model->update($id,$data);
-			redirect(base_url('pegawai'));
+			redirect(base_url('admin/beranda/'.$id));
 		}
 	}
 
@@ -834,7 +834,7 @@ class Admin extends CI_Controller
 			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'lamp_bpjs_kes' => $config['file_name'].$this->upload->data('file_ext'));
 			$result = $this->Data_Pegawai_model->update($id,$data);
-			redirect(base_url('pegawai'));
+			redirect(base_url('admin/beranda/'.$id));
 		}
 	}
 
@@ -850,7 +850,7 @@ class Admin extends CI_Controller
 			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'lamp_bpjs_tk' => $config['file_name'].$this->upload->data('file_ext'));
 			$result = $this->Data_Pegawai_model->update($id,$data);
-			redirect(base_url('pegawai'));
+			redirect(base_url('admin/beranda/'.$id));
 		}
 	}
 
@@ -866,7 +866,7 @@ class Admin extends CI_Controller
 			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'lamp_kartu_npwp' => $config['file_name'].$this->upload->data('file_ext'));
 			$result = $this->Data_Pegawai_model->update($id,$data);
-			redirect(base_url('pegawai'));
+			redirect(base_url('admin/beranda/'.$id));
 		}
 	}
 
@@ -882,11 +882,11 @@ class Admin extends CI_Controller
 			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'lamp_buku_rekening' => $config['file_name'].$this->upload->data('file_ext'));
 			$result = $this->Data_Pegawai_model->update($id,$data);
-			redirect(base_url('pegawai'));
+			redirect(base_url('admin/beranda/'.$id));
 		}
 	}
 
-	function input_lamp_pendidikan($id)
+	function input_lamp_pendidikan($id)																						//tambahan
 	{
 		$config['upload_path'] 			= './assets/upload/pendidikan/';
 		$config['allowed_types']        = '*';
@@ -901,13 +901,13 @@ class Admin extends CI_Controller
 		}
 	}
 
-	function open_lamp_pendidikan($id)
+	function open_lamp_pendidikan($id)																						//tambahan
 	{
 		$data['data']=$this->Pendidikan_model->get_single($id);
 		$this->load->view('v_input_lampiran_pendidikan',$data);
 	}
 
-	function input_lamp_pelatihan($id)
+	function input_lamp_pelatihan($id)																						//tambahan
 	{
 		$config['upload_path'] 			= './assets/upload/pelatihan/';
 		$config['allowed_types']        = '*';
@@ -922,13 +922,13 @@ class Admin extends CI_Controller
 		}
 	}
 
-	function open_lamp_pelatihan($id)
+	function open_lamp_pelatihan($id)																							//tambahan
 	{
 		$data['data']=$this->Pelatihan_model->get_single($id);
 		$this->load->view('v_input_lampiran_pelatihan',$data);
 	}
 
-	function edit_pendidikan($id)
+	function edit_pendidikan($id)																									//tambahan
 	{
 		if ($this->input->post()) {
 			$jenjang = $this->input->post('jenjang');
@@ -952,7 +952,7 @@ class Admin extends CI_Controller
 		}
 	}
 
-	function edit_pelatihan($id)
+	function edit_pelatihan($id)																									//tambahan
 	{
 		if ($this->input->post()) {
 			$nama_pelatihan = $this->input->post('nama_pelatihan');
@@ -988,7 +988,7 @@ class Admin extends CI_Controller
 			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'foto_ava' => $config['file_name'].$this->upload->data('file_ext'));
 			$result = $this->User_model->update($id,$data);
-			redirect(base_url('pegawai'));
+			redirect(base_url('admin/beranda/'.$id));
 		}
 	}
 

@@ -52,6 +52,7 @@ $tgl_bfr = "";
 
                                       <tbody>
                                         <?php
+                                        $tambah = 0;
                                         foreach ($log as $key => $value){
                                           echo '<tr>';
                                           echo '<td>' . ++$tambah . '</td>';
@@ -155,7 +156,3 @@ $tgl_bfr = "";
             </div>
                 </div>
               </div>
-
-        <?php
-        include('v_footer.php');
-        ?>

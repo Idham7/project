@@ -17,13 +17,9 @@
     <!-- menu prile quick info -->
     <div class="profile">
       <div class="profile_pic">
-        <?php if ($user->foto_ava==null) {
-          echo '<img src="'.base_url(). '../assets/images/user.png" alt="..." class="img-circle profile_img">';
-        } else {
-          echo '<img src="'.base_url(). '../assets/upload/foto_ava/'.$user->foto_ava.'" alt="..." class="img-circle profile_img"">';
-        };
+        <?php
+        echo '<img src="'.base_url(). '../assets/upload/foto_ava/'. $this->session->userdata("foto_avatar") .'" alt="..." class="img-circle profile_img"">';
         ?>
-        <!-- <img src="<?php echo base_url() . '../assets/images/'. $this->session->userdata("foto_avatar"); ?>" alt="..." class="img-circle profile_img"> -->
       </div>
       <div class="profile_info">
         <span>Welcome,</span>

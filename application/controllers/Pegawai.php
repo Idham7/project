@@ -46,7 +46,7 @@ class Pegawai extends CI_Controller
 											'datatables/dataTables.responsive.min.js',
 											'datatables/responsive.bootstrap.min.js',
 											'datatables/dataTables.scroller.min.js');
-		//$data['ijs'] = array('log_history.js');
+		$data['ijs'] = array('log_history.js');
 
 		/* Load Footer */
 		$this->load->view('v_footer',$data);
@@ -74,7 +74,7 @@ class Pegawai extends CI_Controller
 		$result['pendidikan'] = $this->Data_Pegawai_model->get_single_pendidikan($id);
 		$result['pelatihan'] = $this->Data_Pegawai_model->get_single_pelatihan($id);
 		$result['user'] = $this->User_model->get_single($id);
-		
+
 		$result['cek_pendidikan'] = $this->Pendidikan_model->id_exists($id);
 		$result['cek_pelatihan'] = $this->Pelatihan_model->id_exists($id);
 
@@ -340,12 +340,12 @@ class Pegawai extends CI_Controller
 		}
 
 		// $success = true;
-		
+
 		// if (!$this->upload->do_upload('lamp_ktp')) {
 		// 	$data['error_file']  = $this->upload->display_errors();
 		// 	$success = false;
 		// }
-		
+
 		// if (!$this->form_validation->run() === TRUE) {
 		// 	$success = false;
 		// }
@@ -633,7 +633,7 @@ class Pegawai extends CI_Controller
 		} else {
 			$data['data']=$this->Pendidikan_model->get_single($id);
 			$data['user'] = $this->User_model->get_single($id);
-			$this->load->view('v_edit_pendidikan',$data);	
+			$this->load->view('v_edit_pendidikan',$data);
 		}
 	}
 
@@ -658,7 +658,7 @@ class Pegawai extends CI_Controller
 		} else {
 			$data['data']=$this->Pelatihan_model->get_single($id);
 			$data['user'] = $this->User_model->get_single($id);
-			$this->load->view('v_edit_pelatihan',$data);	
+			$this->load->view('v_edit_pelatihan',$data);
 		}
 	}
 

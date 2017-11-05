@@ -1,7 +1,6 @@
 <?php
 include('v_header.php');
 
-
 $style = array(
   'class' => 'form-control'
 );
@@ -63,13 +62,10 @@ $style = array(
                       <div id="crop-avatar">
                         <!-- Current avatar -->
                         <div class="avatar-view" title="Change the avatar">
-                          <?php if ($user->foto_ava==null) {
-                            echo '<img src="'.base_url(). '../assets/images/user.png" alt="Avatar">';
-                          } else {
-                            echo '<img src="'.base_url(). '../assets/upload/foto_ava/'.$user->foto_ava.'" alt="Avatar">';
-                          }; 
+                          <?php
+                            echo '<img src="'.base_url(). '../assets/upload/foto_ava/'.$this->session->userdata('foto_avatar').'" alt="Avatar">';
                           ?>
-                          
+
                         </div>
 
                         <!-- Cropping modal -->
@@ -78,7 +74,7 @@ $style = array(
                             <div class="modal-content">
 
                               <?php echo form_open_multipart(base_url('pegawai/input_foto_ava')); ?>
-                                
+
                                 <div class="modal-header">
                                   <button class="close" data-dismiss="modal" type="button">&times;</button>
                                   <h4 class="modal-title" id="avatar-modal-label">Change Avatar</h4>
@@ -96,7 +92,7 @@ $style = array(
 
                                   </div>
                                 </div>
-                                
+
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                   <button class="btn btn-primary source" onclick="new PNotify({
@@ -110,7 +106,7 @@ $style = array(
                                                   <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
                                                 </div> -->
                               <?php echo form_close(); ?>
-                            
+
                             </div>
                           </div>
                         </div>
@@ -658,10 +654,10 @@ $style = array(
 
                                     <?php
                                         if (!$cek_pendidikan) {
-                                          echo '<table class="table table-striped responsive-utilities jambo_table bulk_action"><tbody><tr class="even pointer">(data pelatihan belum ada diinput)</tr></tbody></table>'; 
+                                          echo '<table class="table table-striped responsive-utilities jambo_table bulk_action"><tbody><tr class="even pointer">(data pelatihan belum ada diinput)</tr></tbody></table>';
                                         } else {
                                           echo '<table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-                      
+
                                                   <thead>
                                                     <tr>
                                                       <th>Jenjang Pendidikan</th>
@@ -671,12 +667,12 @@ $style = array(
                                                       <th>Aksi</th>
                                                     </tr>
                                                   </thead>
-                                                  
+
                                                   <tbody>
                                                     ';
                                           foreach ($pendidikan as $data_pendidikan => $dt) {
-                                            
-                              
+
+
                                               echo '<tr id="'.$dt->id .'">';
                                               echo '<td>' . $dt->jenjang  . '</td>';
                                               echo '<td>' . $dt->institusi   . '</td>';
@@ -684,18 +680,18 @@ $style = array(
                                               echo '<td>' . $dt->tahun_lulus   . '</td>';
                                               echo '<td>' .   '<a class="btn btn-primary btn-sm "  aria-label="Left Align" href="'.base_url('pegawai/edit_pendidikan/'.$dt->id).'">
                                                               <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> edit</a>'
-                                                          . 
+                                                          .
                                                               '</td></tr>';
-                              
-                             
-                                          } 
-                                           echo '              
+
+
+                                          }
+                                           echo '
                                                 </tbody>
-                                              
-                                              </table>';   
+
+                                              </table>';
                                         }
                                       ?>
-                                
+
                               </div>
                               <div align="Right">
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg3"><i class="fa fa-edit"></i> Add</button>
@@ -731,9 +727,9 @@ $style = array(
                                             echo form_dropdown('jenjang', $draft, $pendidikan->jenjang, $style);
                                             ?>
                                             </h6> -->
-                                            
+
                                             <!-- <h6>Jenjang Pendidikan <input name="jenjang" type="text" class="form-control" placeholder="Jenjang Pendidikan"></h6> -->
-                                            
+
                                             <h6>Jenjang Pendidikan
                                             <select name="jenjang" class="form-control">
                                               <option value="">Pilih Jenjang Pendidikan</option>
@@ -741,9 +737,9 @@ $style = array(
                                               <option value="SD">SD</option>
                                               <option value="SMP">SMP</option>
                                               <option value="SMA">SMA</option>
-                                              <option value="S1">S1</option>   
-                                              <option value="S2">S2</option>   
-                                              <option value="S3">S3</option>   
+                                              <option value="S1">S1</option>
+                                              <option value="S2">S2</option>
+                                              <option value="S3">S3</option>
                                             </select>
                                             </h6>
 
@@ -978,9 +974,9 @@ $style = array(
                                             </h6>
 
                                            <h6>Tanggal Level<input name="tanggal_level" type="date" class="form-control" placeholder="Tanggal Level" value="<?php echo $pegawai->tanggal_level; ?>"></h6>
-                                           
-                                           <h6>Tanggal Mulai Kerja<input name="tanggal_mulai_kerja" type="date" class="form-control" placeholder="Tanggal Mulai Kerja" value="<?php echo $pegawai->tanggal_mulai_kerja; ?>"><br></h6>                                 
-                                               
+
+                                           <h6>Tanggal Mulai Kerja<input name="tanggal_mulai_kerja" type="date" class="form-control" placeholder="Tanggal Mulai Kerja" value="<?php echo $pegawai->tanggal_mulai_kerja; ?>"><br></h6>
+
                                           </div>
 
                                           <div class="col-md-6 col-cm-6">
@@ -1010,7 +1006,7 @@ $style = array(
                                           <h6>MLI Kontrak<input name="mli_kontrak" type="text" class="form-control" placeholder="MLI Kontrak (Tenaga Kontrak)" value="<?php echo $pegawai->mli_kontrak; ?>"></h6>
 
                                           <h6>END Kontrak<input name="end_kontrak" type="text" class="form-control" placeholder="END Kontrak (Tenaga Kontrak)" value="<?php echo $pegawai->end_kontrak; ?>"></h6>
-                                          
+
                                           </div>
                                         <!-- HOAOHHAOHOALHLAHLHALHALHAL-->
                                         </div>
@@ -1192,350 +1188,350 @@ $style = array(
                                   <tbody>
                                     <tr class="even pointer">
                                       <td class=" ">KTP</td>
-                                      <?php 
+                                      <?php
                                         if ($pegawai->lamp_ktp==null) {
                                           echo '<td class=" ">
                                                   (data belum diinput)
                                                 </td>
-                                                <td class=" "> 
-                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg25"><i class="fa fa-edit"></i> Add</button> 
+                                                <td class=" ">
+                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg25"><i class="fa fa-edit"></i> Add</button>
                                                 </td>';
                                         } else {
                                           echo '<td class=" ">
                                                   <button type="button" class="btn btn-info" data-toggle="modal" data-target=".bs-example-modal-lg23"><i class="fa fa-book"></i> Lihat Data</button>
                                                 </td>
-                                                <td class=" "> 
-                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg24"><i class="fa fa-edit"></i> Edit</button> 
+                                                <td class=" ">
+                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg24"><i class="fa fa-edit"></i> Edit</button>
                                                 </td>';
-                                        };                                    
+                                        };
                                       ?>
                                     </tr>
 
                                     <!-- modals BERKAS -->
                                   <!-- Large modal -->
-                                  
+
 
                                   <!-- MODAL MULAI EDIT -->
                                   <!-- Large modal -->
                                     <tr class="odd pointer">
                                       <td class=" ">SK Kartap</td>
-                                         <?php 
+                                         <?php
                                         if ($pegawai->lamp_sk_kartap==null) {
                                           echo '<td class=" ">
                                                   (data belum diinput)
                                                 </td>
-                                                <td class=" "> 
-                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg26"><i class="fa fa-edit"></i> Add</button> 
+                                                <td class=" ">
+                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg26"><i class="fa fa-edit"></i> Add</button>
                                                 </td>';
                                         } else {
                                           echo '<td class=" ">
                                                   <button type="button" class="btn btn-info" data-toggle="modal" data-target=".bs-example-modal-lg27"><i class="fa fa-book"></i> Lihat Data</button>
                                                 </td>
-                                                <td class=" "> 
-                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg28"><i class="fa fa-edit"></i> Edit</button> 
+                                                <td class=" ">
+                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg28"><i class="fa fa-edit"></i> Edit</button>
                                                 </td>';
-                                        };                                    
+                                        };
                                       ?>
                                     </tr>
                                     <tr class="even pointer">
                                       <td class=" ">SK Promut</td>
-                                        <?php 
+                                        <?php
                                         if ($pegawai->lamp_sk_promut==null) {
                                           echo '<td class=" ">
                                                   (data belum diinput)
                                                 </td>
-                                                <td class=" "> 
-                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg29"><i class="fa fa-edit"></i> Add</button> 
+                                                <td class=" ">
+                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg29"><i class="fa fa-edit"></i> Add</button>
                                                 </td>';
                                         } else {
                                           echo '<td class=" ">
                                                   <button type="button" class="btn btn-info" data-toggle="modal" data-target=".bs-example-modal-lg30"><i class="fa fa-book"></i> Lihat Data</button>
                                                 </td>
-                                                <td class=" "> 
-                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg31"><i class="fa fa-edit"></i> Edit</button> 
+                                                <td class=" ">
+                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg31"><i class="fa fa-edit"></i> Edit</button>
                                                 </td>';
-                                        };                                    
+                                        };
                                       ?>
                                     </tr>
                                     <tr class="odd pointer">
                                       <td class=" ">Lamp. Kontark <small>*Khusus tenaga kontrak</small></td>
-                                      <?php 
+                                      <?php
                                         if ($pegawai->lamp_kontrak==null) {
                                           echo '<td class=" ">
                                                   (data belum diinput)
                                                 </td>
-                                                <td class=" "> 
-                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg32"><i class="fa fa-edit"></i> Add</button> 
+                                                <td class=" ">
+                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg32"><i class="fa fa-edit"></i> Add</button>
                                                 </td>';
                                         } else {
                                           echo '<td class=" ">
                                                   <button type="button" class="btn btn-info" data-toggle="modal" data-target=".bs-example-modal-lg33"><i class="fa fa-book"></i> Lihat Data</button>
                                                 </td>
-                                                <td class=" "> 
-                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg34"><i class="fa fa-edit"></i> Edit</button> 
+                                                <td class=" ">
+                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg34"><i class="fa fa-edit"></i> Edit</button>
                                                 </td>';
-                                        };                                    
+                                        };
                                       ?>
                                     </tr>
                                     <tr class="even pointer">
                                       <td class=" ">Buku Nikah</td>
-                                      <?php 
+                                      <?php
                                         if ($pegawai->lamp_buku_nikah==null) {
                                           echo '<td class=" ">
                                                   (data belum diinput)
                                                 </td>
-                                                <td class=" "> 
-                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg35"><i class="fa fa-edit"></i> Add</button> 
+                                                <td class=" ">
+                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg35"><i class="fa fa-edit"></i> Add</button>
                                                 </td>';
                                         } else {
                                           echo '<td class=" ">
                                                   <button type="button" class="btn btn-info" data-toggle="modal" data-target=".bs-example-modal-lg36"><i class="fa fa-book"></i> Lihat Data</button>
                                                 </td>
-                                                <td class=" "> 
-                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg37"><i class="fa fa-edit"></i> Edit</button> 
+                                                <td class=" ">
+                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg37"><i class="fa fa-edit"></i> Edit</button>
                                                 </td>';
-                                        };                                    
+                                        };
                                       ?>
                                     </tr>
                                     <tr class="odd pointer">
                                       <td class=" ">Kartu Keluarga</td>
-                                        <?php 
+                                        <?php
                                         if ($pegawai->lamp_kk==null) {
                                           echo '<td class=" ">
                                                   (data belum diinput)
                                                 </td>
-                                                <td class=" "> 
-                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg38"><i class="fa fa-edit"></i> Add</button> 
+                                                <td class=" ">
+                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg38"><i class="fa fa-edit"></i> Add</button>
                                                 </td>';
                                         } else {
                                           echo '<td class=" ">
                                                   <button type="button" class="btn btn-info" data-toggle="modal" data-target=".bs-example-modal-lg39"><i class="fa fa-book"></i> Lihat Data</button>
                                                 </td>
-                                                <td class=" "> 
-                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg40"><i class="fa fa-edit"></i> Edit</button> 
+                                                <td class=" ">
+                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg40"><i class="fa fa-edit"></i> Edit</button>
                                                 </td>';
-                                        };                                    
+                                        };
                                       ?>
                                     </tr>
                                     <tr class="even pointer">
                                       <td class=" ">KTP Pasangan</td>
-                                      <?php 
+                                      <?php
                                         if ($pegawai->lamp_ktp_pasangan==null) {
                                           echo '<td class=" ">
                                                   (data belum diinput)
                                                 </td>
-                                                <td class=" "> 
-                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg41"><i class="fa fa-edit"></i> Add</button> 
+                                                <td class=" ">
+                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg41"><i class="fa fa-edit"></i> Add</button>
                                                 </td>';
                                         } else {
                                           echo '<td class=" ">
                                                   <button type="button" class="btn btn-info" data-toggle="modal" data-target=".bs-example-modal-lg42"><i class="fa fa-book"></i> Lihat Data</button>
                                                 </td>
-                                                <td class=" "> 
-                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg43"><i class="fa fa-edit"></i> Edit</button> 
+                                                <td class=" ">
+                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg43"><i class="fa fa-edit"></i> Edit</button>
                                                 </td>';
-                                        };                                    
+                                        };
                                       ?>
                                     </tr>
                                     <tr class="odd pointer">
                                       <td class=" ">Akta Lahir Anak 1</td>
-                                      <?php 
+                                      <?php
                                         if ($pegawai->lamp_akta_1==null) {
                                           echo '<td class=" ">
                                                   (data belum diinput)
                                                 </td>
-                                                <td class=" "> 
-                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg44"><i class="fa fa-edit"></i> Add</button> 
+                                                <td class=" ">
+                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg44"><i class="fa fa-edit"></i> Add</button>
                                                 </td>';
                                         } else {
                                           echo '<td class=" ">
                                                   <button type="button" class="btn btn-info" data-toggle="modal" data-target=".bs-example-modal-lg45"><i class="fa fa-book"></i> Lihat Data</button>
                                                 </td>
-                                                <td class=" "> 
-                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg46"><i class="fa fa-edit"></i> Edit</button> 
+                                                <td class=" ">
+                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg46"><i class="fa fa-edit"></i> Edit</button>
                                                 </td>';
-                                        };                                    
+                                        };
                                       ?>
                                     </tr>
                                     <tr class="even pointer">
                                       <td class=" ">Akta Lahir Anak 2</td>
-                                      <?php 
+                                      <?php
                                         if ($pegawai->lamp_akta_2==null) {
                                           echo '<td class=" ">
                                                   (data belum diinput)
                                                 </td>
-                                                <td class=" "> 
-                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg47"><i class="fa fa-edit"></i> Add</button> 
+                                                <td class=" ">
+                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg47"><i class="fa fa-edit"></i> Add</button>
                                                 </td>';
                                         } else {
                                           echo '<td class=" ">
                                                   <button type="button" class="btn btn-info" data-toggle="modal" data-target=".bs-example-modal-lg48"><i class="fa fa-book"></i> Lihat Data</button>
                                                 </td>
-                                                <td class=" "> 
-                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg49"><i class="fa fa-edit"></i> Edit</button> 
+                                                <td class=" ">
+                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg49"><i class="fa fa-edit"></i> Edit</button>
                                                 </td>';
-                                        };                                    
+                                        };
                                       ?>
                                     </tr>
                                     <tr class="odd pointer">
                                       <td class=" ">Akta Lahir Anak 3</td>
-                                      <?php 
+                                      <?php
                                         if ($pegawai->lamp_akta_3==null) {
                                           echo '<td class=" ">
                                                   (data belum diinput)
                                                 </td>
-                                                <td class=" "> 
-                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg50"><i class="fa fa-edit"></i> Add</button> 
+                                                <td class=" ">
+                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg50"><i class="fa fa-edit"></i> Add</button>
                                                 </td>';
                                         } else {
                                           echo '<td class=" ">
                                                   <button type="button" class="btn btn-info" data-toggle="modal" data-target=".bs-example-modal-lg51"><i class="fa fa-book"></i> Lihat Data</button>
                                                 </td>
-                                                <td class=" "> 
-                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg52"><i class="fa fa-edit"></i> Edit</button> 
+                                                <td class=" ">
+                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg52"><i class="fa fa-edit"></i> Edit</button>
                                                 </td>';
-                                        };                                    
+                                        };
                                       ?>
                                     </tr>
                                     <tr class="even pointer">
                                       <td class=" ">Kartu BPJS Kesehatan</td>
-                                      <?php 
+                                      <?php
                                         if ($pegawai->lamp_bpjs_kes==null) {
                                           echo '<td class=" ">
                                                   (data belum diinput)
                                                 </td>
-                                                <td class=" "> 
-                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg53"><i class="fa fa-edit"></i> Add</button> 
+                                                <td class=" ">
+                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg53"><i class="fa fa-edit"></i> Add</button>
                                                 </td>';
                                         } else {
                                           echo '<td class=" ">
                                                   <button type="button" class="btn btn-info" data-toggle="modal" data-target=".bs-example-modal-lg54"><i class="fa fa-book"></i> Lihat Data</button>
                                                 </td>
-                                                <td class=" "> 
-                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg55"><i class="fa fa-edit"></i> Edit</button> 
+                                                <td class=" ">
+                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg55"><i class="fa fa-edit"></i> Edit</button>
                                                 </td>';
-                                        };                                    
+                                        };
                                       ?>
                                     </tr>
                                     <tr class="odd pointer">
                                       <td class=" ">Kartu BPJS Ketenagakerjaan</td>
-                                      <?php 
+                                      <?php
                                         if ($pegawai->lamp_bpjs_tk==null) {
                                           echo '<td class=" ">
                                                   (data belum diinput)
                                                 </td>
-                                                <td class=" "> 
-                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg56"><i class="fa fa-edit"></i> Add</button> 
+                                                <td class=" ">
+                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg56"><i class="fa fa-edit"></i> Add</button>
                                                 </td>';
                                         } else {
                                           echo '<td class=" ">
                                                   <button type="button" class="btn btn-info" data-toggle="modal" data-target=".bs-example-modal-lg57"><i class="fa fa-book"></i> Lihat Data</button>
                                                 </td>
-                                                <td class=" "> 
-                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg58"><i class="fa fa-edit"></i> Edit</button> 
+                                                <td class=" ">
+                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg58"><i class="fa fa-edit"></i> Edit</button>
                                                 </td>';
-                                        };                                    
+                                        };
                                       ?>
                                     </tr>
                                     <tr class="even pointer">
                                       <td class=" ">Kartu NPWP</td>
-                                      <?php 
+                                      <?php
                                         if ($pegawai->lamp_kartu_npwp==null) {
                                           echo '<td class=" ">
                                                   (data belum diinput)
                                                 </td>
-                                                <td class=" "> 
-                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg59"><i class="fa fa-edit"></i> Add</button> 
+                                                <td class=" ">
+                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg59"><i class="fa fa-edit"></i> Add</button>
                                                 </td>';
                                         } else {
                                           echo '<td class=" ">
                                                   <button type="button" class="btn btn-info" data-toggle="modal" data-target=".bs-example-modal-lg60"><i class="fa fa-book"></i> Lihat Data</button>
                                                 </td>
-                                                <td class=" "> 
-                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg61"><i class="fa fa-edit"></i> Edit</button> 
+                                                <td class=" ">
+                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg61"><i class="fa fa-edit"></i> Edit</button>
                                                 </td>';
-                                        };                                    
+                                        };
                                       ?>
                                     </tr>
                                     <tr class="odd pointer">
                                       <td class=" ">Buku Rekening</td>
-                                      <?php 
+                                      <?php
                                         if ($pegawai->lamp_buku_rekening==null) {
                                           echo '<td class=" ">
                                                   (data belum diinput)
                                                 </td>
-                                                <td class=" "> 
-                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg62"><i class="fa fa-edit"></i> Add</button> 
+                                                <td class=" ">
+                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg62"><i class="fa fa-edit"></i> Add</button>
                                                 </td>';
                                         } else {
                                           echo '<td class=" ">
                                                   <button type="button" class="btn btn-info" data-toggle="modal" data-target=".bs-example-modal-lg63"><i class="fa fa-book"></i> Lihat Data</button>
                                                 </td>
-                                                <td class=" "> 
-                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg64"><i class="fa fa-edit"></i> Edit</button> 
+                                                <td class=" ">
+                                                  <button type="button" class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg64"><i class="fa fa-edit"></i> Edit</button>
                                                 </td>';
-                                        };                                    
+                                        };
                                       ?>
                                     </tr>
-                                      
-                                    <?php 
-                                      
+
+                                    <?php
+
                                     foreach ($pendidikan as $data_pendidikan => $dt) {
 
-                                    echo 
+                                    echo
                                     '<tr class="even pointer">
                                       <td class=" ">Ijazah '.$dt->institusi.'</td>';
-                                      
+
                                         if ($dt->lamp_ijazah==null) {
                                           echo '<td class=" ">
                                                   (data belum diinput)
                                                 </td>
-                                                <td class=" "> 
-                                                  <a type="button" class="btn btn-success" href="'.base_url('pegawai/open_lamp_pendidikan/'.$dt->id).'"><i class="fa fa-edit"></i> Add</a> 
+                                                <td class=" ">
+                                                  <a type="button" class="btn btn-success" href="'.base_url('pegawai/open_lamp_pendidikan/'.$dt->id).'"><i class="fa fa-edit"></i> Add</a>
                                                 </td>';
                                         } else {
                                           echo '<td class=" ">
                                                   <a type="button" class="btn btn-info" href="'.base_url("../assets/upload/pendidikan"). '/' .$dt->lamp_ijazah.'" target="_blank"><i class="fa fa-book"></i> Lihat Data</a>
                                                 </td>
-                                                <td class=" "> 
-                                                  <a type="button" class="btn btn-success" href="'.base_url('pegawai/open_lamp_pendidikan/'.$dt->id).'"><i class="fa fa-edit"></i> Edit</a> 
+                                                <td class=" ">
+                                                  <a type="button" class="btn btn-success" href="'.base_url('pegawai/open_lamp_pendidikan/'.$dt->id).'"><i class="fa fa-edit"></i> Edit</a>
                                                 </td>';
-                                        } 
-                                      
-                                    echo 
+                                        }
+
+                                    echo
                                     '</tr>';
-                                    
+
                                     };
                                     ?>
-                                   
-                                    <?php 
-                                    
+
+                                    <?php
+
                                     foreach ($pelatihan as $data_pelatihan => $dt) {
-                                    
-                                    echo 
+
+                                    echo
                                     '<tr class="even pointer">
                                       <td class=" ">Sertifikat '.$dt->nama_pelatihan.'</td>';
-                                      
+
                                         if ($dt->lampiran_pelatihan==null) {
                                           echo '<td class=" ">
                                                   (data belum diinput)
                                                 </td>
-                                                <td class=" "> 
-                                                  <a type="button" class="btn btn-success" href="'.base_url('pegawai/open_lamp_pelatihan/'.$dt->id).'"><i class="fa fa-edit"></i> Add</a> 
+                                                <td class=" ">
+                                                  <a type="button" class="btn btn-success" href="'.base_url('pegawai/open_lamp_pelatihan/'.$dt->id).'"><i class="fa fa-edit"></i> Add</a>
                                                 </td>';
                                         } else {
                                           echo '<td class=" ">
                                                   <a type="button" class="btn btn-info" href="'.base_url("../assets/upload/pelatihan"). '/' .$dt->lampiran_pelatihan.'" target="_blank"><i class="fa fa-book"></i> Lihat Data</a>
                                                 </td>
-                                                <td class=" "> 
-                                                  <a type="button" class="btn btn-success" href="'.base_url('pegawai/open_lamp_pelatihan/'.$dt->id).'"><i class="fa fa-edit"></i> Edit</a> 
+                                                <td class=" ">
+                                                  <a type="button" class="btn btn-success" href="'.base_url('pegawai/open_lamp_pelatihan/'.$dt->id).'"><i class="fa fa-edit"></i> Edit</a>
                                                 </td>';
-                                        } 
+                                        }
                                       echo '<br>';
-                                      
-                                    echo 
+
+                                    echo
                                     '</tr>';
-                                    
+
                                     };
                                     ?>
                                   </tbody>
@@ -1571,7 +1567,7 @@ $style = array(
                                   <div class="modal fade bs-example-modal-lg24" tabindex="-1" role="dialog" aria-hidden="true">
                                     <div class="modal-dialog modal-md">
                                       <div class="modal-content">
-                                        
+
                                         <?php echo form_open_multipart(base_url('pegawai/input_ktp')); ?>
 
                                         <div class="modal-header">
@@ -1629,7 +1625,7 @@ $style = array(
                                             </td>
                                           </tr>
                                         </div>
-                                        
+
                                         </fieldset>
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -1640,7 +1636,7 @@ $style = array(
                                                   });">Save changes
                                           </button>
                                         </div>
-                                        
+
                                         <?php echo form_close(); ?>
 
                                       </div>
@@ -1669,7 +1665,7 @@ $style = array(
                                             </td>
                                           </tr>
                                         </div>
-                                        
+
                                         </fieldset>
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -1680,7 +1676,7 @@ $style = array(
                                                   });">Save changes
                                           </button>
                                         </div>
-                                        
+
                                         <?php echo form_close(); ?>
 
                                       </div>
@@ -1715,7 +1711,7 @@ $style = array(
                                   <div class="modal fade bs-example-modal-lg28" tabindex="-1" role="dialog" aria-hidden="true">
                                     <div class="modal-dialog modal-md">
                                       <div class="modal-content">
-                                        
+
                                         <?php echo form_open_multipart(base_url('pegawai/input_sk_kartap')); ?>
 
                                         <div class="modal-header">
@@ -1773,7 +1769,7 @@ $style = array(
                                             </td>
                                           </tr>
                                         </div>
-                                        
+
                                         </fieldset>
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -1784,7 +1780,7 @@ $style = array(
                                                   });">Save changes
                                           </button>
                                         </div>
-                                        
+
                                         <?php echo form_close(); ?>
 
                                       </div>
@@ -1819,7 +1815,7 @@ $style = array(
                                   <div class="modal fade bs-example-modal-lg31" tabindex="-1" role="dialog" aria-hidden="true">
                                     <div class="modal-dialog modal-md">
                                       <div class="modal-content">
-                                        
+
                                         <?php echo form_open_multipart(base_url('pegawai/input_sk_promut')); ?>
 
                                         <div class="modal-header">
@@ -1877,7 +1873,7 @@ $style = array(
                                             </td>
                                           </tr>
                                         </div>
-                                        
+
                                         </fieldset>
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -1888,7 +1884,7 @@ $style = array(
                                                   });">Save changes
                                           </button>
                                         </div>
-                                        
+
                                         <?php echo form_close(); ?>
 
                                       </div>
@@ -1923,7 +1919,7 @@ $style = array(
                                   <div class="modal fade bs-example-modal-lg34" tabindex="-1" role="dialog" aria-hidden="true">
                                     <div class="modal-dialog modal-md">
                                       <div class="modal-content">
-                                        
+
                                         <?php echo form_open_multipart(base_url('pegawai/input_lamp_kontrak')); ?>
 
                                         <div class="modal-header">
@@ -1981,7 +1977,7 @@ $style = array(
                                             </td>
                                           </tr>
                                         </div>
-                                        
+
                                         </fieldset>
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -1992,7 +1988,7 @@ $style = array(
                                                   });">Save changes
                                           </button>
                                         </div>
-                                        
+
                                         <?php echo form_close(); ?>
 
                                       </div>
@@ -2027,7 +2023,7 @@ $style = array(
                                   <div class="modal fade bs-example-modal-lg37" tabindex="-1" role="dialog" aria-hidden="true">
                                     <div class="modal-dialog modal-md">
                                       <div class="modal-content">
-                                        
+
                                         <?php echo form_open_multipart(base_url('pegawai/input_buku_nikah')); ?>
 
                                         <div class="modal-header">
@@ -2085,7 +2081,7 @@ $style = array(
                                             </td>
                                           </tr>
                                         </div>
-                                        
+
                                         </fieldset>
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -2096,7 +2092,7 @@ $style = array(
                                                   });">Save changes
                                           </button>
                                         </div>
-                                        
+
                                         <?php echo form_close(); ?>
 
                                       </div>
@@ -2131,7 +2127,7 @@ $style = array(
                                   <div class="modal fade bs-example-modal-lg40" tabindex="-1" role="dialog" aria-hidden="true">
                                     <div class="modal-dialog modal-md">
                                       <div class="modal-content">
-                                        
+
                                         <?php echo form_open_multipart(base_url('pegawai/input_kk')); ?>
 
                                         <div class="modal-header">
@@ -2189,7 +2185,7 @@ $style = array(
                                             </td>
                                           </tr>
                                         </div>
-                                        
+
                                         </fieldset>
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -2200,7 +2196,7 @@ $style = array(
                                                   });">Save changes
                                           </button>
                                         </div>
-                                        
+
                                         <?php echo form_close(); ?>
 
                                       </div>
@@ -2235,7 +2231,7 @@ $style = array(
                                   <div class="modal fade bs-example-modal-lg43" tabindex="-1" role="dialog" aria-hidden="true">
                                     <div class="modal-dialog modal-md">
                                       <div class="modal-content">
-                                        
+
                                         <?php echo form_open_multipart(base_url('pegawai/input_ktp_pasangan')); ?>
 
                                         <div class="modal-header">
@@ -2293,7 +2289,7 @@ $style = array(
                                             </td>
                                           </tr>
                                         </div>
-                                        
+
                                         </fieldset>
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -2304,7 +2300,7 @@ $style = array(
                                                   });">Save changes
                                           </button>
                                         </div>
-                                        
+
                                         <?php echo form_close(); ?>
 
                                       </div>
@@ -2339,7 +2335,7 @@ $style = array(
                                   <div class="modal fade bs-example-modal-lg46" tabindex="-1" role="dialog" aria-hidden="true">
                                     <div class="modal-dialog modal-md">
                                       <div class="modal-content">
-                                        
+
                                         <?php echo form_open_multipart(base_url('pegawai/input_akta_1')); ?>
 
                                         <div class="modal-header">
@@ -2397,7 +2393,7 @@ $style = array(
                                             </td>
                                           </tr>
                                         </div>
-                                        
+
                                         </fieldset>
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -2408,7 +2404,7 @@ $style = array(
                                                   });">Save changes
                                           </button>
                                         </div>
-                                        
+
                                         <?php echo form_close(); ?>
 
                                       </div>
@@ -2443,7 +2439,7 @@ $style = array(
                                   <div class="modal fade bs-example-modal-lg49" tabindex="-1" role="dialog" aria-hidden="true">
                                     <div class="modal-dialog modal-md">
                                       <div class="modal-content">
-                                        
+
                                         <?php echo form_open_multipart(base_url('pegawai/input_akta_2')); ?>
 
                                         <div class="modal-header">
@@ -2501,7 +2497,7 @@ $style = array(
                                             </td>
                                           </tr>
                                         </div>
-                                        
+
                                         </fieldset>
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -2512,7 +2508,7 @@ $style = array(
                                                   });">Save changes
                                           </button>
                                         </div>
-                                        
+
                                         <?php echo form_close(); ?>
 
                                       </div>
@@ -2547,7 +2543,7 @@ $style = array(
                                   <div class="modal fade bs-example-modal-lg52" tabindex="-1" role="dialog" aria-hidden="true">
                                     <div class="modal-dialog modal-md">
                                       <div class="modal-content">
-                                        
+
                                         <?php echo form_open_multipart(base_url('pegawai/input_akta_3')); ?>
 
                                         <div class="modal-header">
@@ -2605,7 +2601,7 @@ $style = array(
                                             </td>
                                           </tr>
                                         </div>
-                                        
+
                                         </fieldset>
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -2616,7 +2612,7 @@ $style = array(
                                                   });">Save changes
                                           </button>
                                         </div>
-                                        
+
                                         <?php echo form_close(); ?>
 
                                       </div>
@@ -2651,7 +2647,7 @@ $style = array(
                                   <div class="modal fade bs-example-modal-lg55" tabindex="-1" role="dialog" aria-hidden="true">
                                     <div class="modal-dialog modal-md">
                                       <div class="modal-content">
-                                        
+
                                         <?php echo form_open_multipart(base_url('pegawai/input_bpjs_kes')); ?>
 
                                         <div class="modal-header">
@@ -2709,7 +2705,7 @@ $style = array(
                                             </td>
                                           </tr>
                                         </div>
-                                        
+
                                         </fieldset>
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -2720,7 +2716,7 @@ $style = array(
                                                   });">Save changes
                                           </button>
                                         </div>
-                                        
+
                                         <?php echo form_close(); ?>
 
                                       </div>
@@ -2755,7 +2751,7 @@ $style = array(
                                   <div class="modal fade bs-example-modal-lg58" tabindex="-1" role="dialog" aria-hidden="true">
                                     <div class="modal-dialog modal-md">
                                       <div class="modal-content">
-                                        
+
                                         <?php echo form_open_multipart(base_url('pegawai/input_bpjs_ket')); ?>
 
                                         <div class="modal-header">
@@ -2813,7 +2809,7 @@ $style = array(
                                             </td>
                                           </tr>
                                         </div>
-                                        
+
                                         </fieldset>
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -2824,7 +2820,7 @@ $style = array(
                                                   });">Save changes
                                           </button>
                                         </div>
-                                        
+
                                         <?php echo form_close(); ?>
 
                                       </div>
@@ -2859,7 +2855,7 @@ $style = array(
                                   <div class="modal fade bs-example-modal-lg61" tabindex="-1" role="dialog" aria-hidden="true">
                                     <div class="modal-dialog modal-md">
                                       <div class="modal-content">
-                                        
+
                                         <?php echo form_open_multipart(base_url('pegawai/input_npwp')); ?>
 
                                         <div class="modal-header">
@@ -2917,7 +2913,7 @@ $style = array(
                                             </td>
                                           </tr>
                                         </div>
-                                        
+
                                         </fieldset>
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -2928,7 +2924,7 @@ $style = array(
                                                   });">Save changes
                                           </button>
                                         </div>
-                                        
+
                                         <?php echo form_close(); ?>
 
                                       </div>
@@ -2963,7 +2959,7 @@ $style = array(
                                   <div class="modal fade bs-example-modal-lg64" tabindex="-1" role="dialog" aria-hidden="true">
                                     <div class="modal-dialog modal-md">
                                       <div class="modal-content">
-                                        
+
                                         <?php echo form_open_multipart(base_url('pegawai/input_buku_rek')); ?>
 
                                         <div class="modal-header">
@@ -3015,13 +3011,13 @@ $style = array(
                               </div>
 
                               <div class="x_content">
-                                
+
                                     <?php
                                         if (!$cek_pelatihan) {
-                                          echo '<table class="table table-striped responsive-utilities jambo_table bulk_action"><tbody><tr class="even pointer">(data pelatihan belum ada diinput)</tr></tbody></table>'; 
+                                          echo '<table class="table table-striped responsive-utilities jambo_table bulk_action"><tbody><tr class="even pointer">(data pelatihan belum ada diinput)</tr></tbody></table>';
                                         } else {
                                           echo '<table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%">
-                      
+
                                                   <thead>
                                                     <tr>
                                                       <th>Nama Pelatihan</th>
@@ -3031,12 +3027,12 @@ $style = array(
                                                       <th>Aksi</th>
                                                     </tr>
                                                   </thead>
-                                                  
+
                                                   <tbody>
                                                     ';
                                           foreach ($pelatihan as $data_pelatihan => $dt) {
-                                            
-                              
+
+
                                               echo '<tr id="'.$dt->id .'">';
                                               echo '<td>' . $dt->nama_pelatihan  . '</td>';
                                               echo '<td>' . $dt->tanggal_mulai   . '</td>';
@@ -3044,15 +3040,15 @@ $style = array(
                                               echo '<td>' . $dt->nama_penyelenggara   . '</td>';
                                               echo '<td>' .   '<a class="btn btn-primary btn-sm "  aria-label="Left Align" href="'.base_url('pegawai/edit_pelatihan/'.$dt->id).'">
                                                               <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> edit</a>'
-                                                          . 
+                                                          .
                                                               '</td></tr>';
-                              
-                             
-                                          } 
-                                           echo '              
+
+
+                                          }
+                                           echo '
                                                 </tbody>
-                                              
-                                              </table>';   
+
+                                              </table>';
                                         }
                                       ?>
 

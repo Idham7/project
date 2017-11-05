@@ -9,9 +9,11 @@ class User_model extends CI_Model {
     }
 
     public function check_login(){
-        $user = $this->input->post('username');
-        $password = $this->input->post('password');
-        
+        // $user = $this->input->post('username');
+        // $password = $this->input->post('password');
+        $user = 'idam@gmail.com';
+        $password = 'idam';
+
         $this->db->select('*')->from('user');
         $this->db->where('email',$user)
                   ->where('password',md5($password))
@@ -21,7 +23,7 @@ class User_model extends CI_Model {
         $result = $query->row();
 
         if (isset($result)) {
-            $foto_avatar = $result->foto_avatar != null ? $result->foto_avatar : 'user.png';
+            $foto_avatar = isset($result->foto_ava) ? $result->foto_ava : 'user.png';
             $userdata = array(
               'id'          => $result->id,
               'email'       => $result->email,
