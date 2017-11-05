@@ -1,0 +1,50 @@
+
+
+
+/* CSS used here will be applied after bootstrap.css 
+* LOGIN PAGE
+*/
+
+#body-login { 
+ background: no-repeat center fixed; 
+ -webkit-background-size: cover;
+ -moz-background-size: cover;
+ -o-background-size: cover;
+ background-size: cover;
+}
+
+.panel-default {
+ opacity: 0.9;
+
+}
+
+.form-group.last {
+ margin-bottom:0px;
+}
+
+.navbar .logopln{
+	height: 2.5em;
+}
+
+.navbar{
+	margin-top: 10px;
+	height: 5em;
+	background : rgba(0,0,0,0.5);
+}
+
+div #login-container{
+	height: 100%;
+	margin : 6.25em auto;
+}
+
+#jumbotron-login{
+	background: rgba(255,255,255,0);
+	color: black;
+}
+
+#jumbotron-login h1 b{
+	color : #F39C12; /*Orange*/
+}
+
+
+

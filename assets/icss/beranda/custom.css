@@ -1,0 +1,24 @@
+body {
+    color: #73879C;
+    font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+}
+
+.logo-container .logo{
+    overflow: hidden;
+    border-radius: 45%;
+    /*border: 1px solid #333333;*/
+    width: 45px;
+    float: left;
+}
+
+.log{
+   margin-left: 5px;
+}
+
+.logo-container .logo img{
+    width: 100%;
+}
+
+.navbar-small .logo-container .brand{
+    color: #333333;
+}

@@ -1,0 +1,80 @@
+.error {
+   color: #CE5454;
+   font-size: 12px;
+   margin-top: 5px;
+   margin-bottom: 0;
+}
+
+.inputTxtError {
+   border: 1px solid #CE5454;
+   color: #0e0e0e;
+}
+
+#loading-indicator {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+}
+
+#reservation{
+  z-index: 100000 !important;
+}
+
+
+.modal.loading .modal-content:before {
+    content: 'Loading...';
+    text-align: center;
+    line-height: 155px;
+    font-size: 20px;
+    background: rgba(0, 0, 0, .8);
+    position: absolute;
+    top: 55px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: #EEE;
+    z-index: 1000;
+}
+
+.btn-rnj{
+  height: 60px;
+  width: 25%;
+  border: 2px solid gray;
+  border-radius: 2px;
+  text-align: center;
+  font-size: 10px;
+}
+
+.btn-rnj-kosong{
+  background-color: #2ECC71;
+  color : white;
+}
+
+
+.btn-rnj-kosong:hover{
+  background-color: #27ae60;
+  color : white;
+}
+
+.btn-rnj-terisi{
+  background-color: #E74C3C;
+  color: white;
+}
+
+.btn-rnj-terisi:hover{
+  background-color: #c0392b;
+  color: white;
+}
+
+.btn-rnj-pesan{
+  background-color: #F1C40F;
+}
+
+.btn-rnj-pesan:hover{
+  background-color: #F39c12;
+}
+
+.btn-rnj-rusak{
+  background-color: lightgray;
+  color : gray;
+}
