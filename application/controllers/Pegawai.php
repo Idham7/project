@@ -121,10 +121,13 @@ class Pegawai extends CI_Controller
         'kode_pos' => $kd_pos,
 	      'no_hp' => $no_hp
 		);
+
 		$data['lama'] = $this->Data_Pegawai_model->get_single_only_rowarray($this->session->userdata('id'));
 
+		// bandingkan
 		$set = array_diff_assoc($data['baru'],$data['lama']);
 
+		// ambil variabel untuk disetor ke log_history
 		if(isset($set['des_kel'])){
 			$set['des_kel'] = $this->Daerah_model->getKel_byKel($set['des_kel'])['nama'];
 		}
@@ -138,9 +141,12 @@ class Pegawai extends CI_Controller
 			$set['prov'] = $this->Daerah_model->getProv_byProv($set['prov'])['nama'];
 		}
 
+		// result sebagai key
 		$result=array_keys($set);
+		// result2 sebagai value
 		$result2=array_values($set);
 
+		// ubah database kolom menjadi lebih enak di eja
 		$hoho = array(
 			'nama_posisi' => "Nama Posisi", 'lokasi_kerja' => 'Lokasi Kerja', 'unit_kerja' => 'Unit Kerja', 'psa' => 'PSA', 'nik' => 'NIK', 'level_eksis' => 'Level Eksis', 'tanggal_level' => 'Tanggal Level', 'tanggal_mulai_kerja' => 'Tanggal Mulai Kerja', 'status_karyawan' => 'Status Karyawan', 'no_sk_kartap' => 'Nomor SK Pengangkatan KARTAP',
 			'tanggal_kartap' => 'Tanggal Kartap', 'no_sk_promut' => 'No SK PROMUT', 'tanggal_promut' => 'Tanggal PROMUT', 'no_kontrak' => 'Nomor Kontrak', 'mli_kontrak' => 'MLI Kontrak', 'end_kontrak' => 'End Kontrak', 'status_nikah' => 'Status Nikah', 'tanggal_nikah' => 'Tanggal Nikah', 'tang_kel' => 'Tang Kel', 'no_kk' => 'No KK',
@@ -148,19 +154,27 @@ class Pegawai extends CI_Controller
 			'nama_bank' => 'Nama Bank', 'no_rekening' => 'No Rekening', 'nama_rekening' => 'Nama Rekening', 'nama_lengkap' => 'Nama Lengkap', 'tempat_lahir' => 'Tempat Lahir', 'tanggal_lahir' => 'Tanggal Lahir', 'agama' => 'Agama', 'sex' => 'Jenis Kelamin', 'gol_darah' => 'Golongan Darah', 'nomor_ktp' => 'Nomor KTP', 'email_telpro' => 'Email Telpro',	'other_email' => 'Email Lain', 'alamat' => 'Alamat', 'rt_rw' => 'RT/RW',
 			'des_kel' => 'Desa/Kelurahan', 'kec' => 'Kecamatan', 'kab_kot' => 'Kabupaten/Kota', 'prov' => 'Provinsi',  'kode_pos' => 'Kode Pos', 'no_hp' => 'no HP'
 		);
+
+		// mengganti value dari array result menjadi array hoho
 		$ar = array();
 		foreach ($result as $key) {
 			array_push($ar,$hoho[$key]);
 		}
 
+		foreach ($result2 as $key => $number) {
+			if(!isset($result2[$key])){
+				$result2[$key] = 'Kosong';
+			}
+		}
 
+		// jika data berubah maka akan diubah jika tidak maka tidak ada perubahan
 		if(count($result)>0){
 			$data['log'] = array(
-				'id_pegawai'			=> $this->session->userdata('id'),
-						'db_index'		=> implode(",", $ar),
-						'deskripsi'		=> implode(",", $result2),
-						'link'				=> NULL,
-						'updated_at'	=> mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'))
+				'id_pegawai'	=> $this->session->userdata('id'),
+				'db_index'		=> implode(",", $ar),
+				'deskripsi'		=> implode(",", $result2),
+				'link'				=> NULL,
+				'updated_at'	=> mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'))
 			);
 
 			$this->Log_history_model->create($data['log']);
@@ -186,23 +200,79 @@ class Pegawai extends CI_Controller
 		$anak3 = $this->input->post('nama_anak_3');
 		$ayah = $this->input->post('nama_ayah_kandung');
 		$ibu = $this->input->post('nama_ibu_kandung');
+		if($status_nikah == 'Belum Menikah'){
+			$data['baru'] = array(
+	        'status_nikah' => $status_nikah,
+	        'tanggal_nikah' => NULL,
+	        'tang_kel' => $tang_kel,
+	        'no_kk' => NULL,
+	        'nama_suami_or_istri' => NULL,
+	        'nama_anak_1' => NULL,
+	        'nama_anak_2' => NULL,
+					'nama_anak_3' => NULL,
+					'nama_ayah_kandung' => $ayah,
+	        'nama_ibu_kandung' => $ibu
+			);
+		} else {
+			$data['baru'] = array(
+				'status_nikah' => $status_nikah,
+				'tanggal_nikah' => $tgl_nikah,
+				'tang_kel' => $tang_kel,
+				'no_kk' => $no_kk,
+				'nama_suami_or_istri' => $nama_pasangan,
+				'nama_anak_1' => $anak1,
+				'nama_anak_2' => $anak2,
+				'nama_anak_3' => $anak3,
+				'nama_ayah_kandung' => $ayah,
+				'nama_ibu_kandung' => $ibu
+			);
+		}
 
-		$data = array(
-        'status_nikah' => $status_nikah,
-        'tanggal_nikah' => $tgl_nikah,
-        'tang_kel' => $tang_kel,
-        'no_kk' => $no_kk,
-        'nama_suami_or_istri' => $nama_pasangan,
-        'nama_anak_1' => $anak1,
-        'nama_anak_2' => $anak2,
-		'nama_anak_3' => $anak3,
-		'nama_ayah_kandung' => $ayah,
-        'nama_ibu_kandung' => $ibu,
-		'updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'))
+		$data['lama'] = $this->Data_Pegawai_model->get_single_only_rowarray($this->session->userdata('id'));
+
+		// bandingkan
+		$set = array_diff_assoc($data['baru'],$data['lama']);
+
+		// result sebagai key
+		$result=array_keys($set);
+		// result2 sebagai value
+		$result2=array_values($set);
+
+		$hoho = array(
+			'nama_posisi' => "Nama Posisi", 'lokasi_kerja' => 'Lokasi Kerja', 'unit_kerja' => 'Unit Kerja', 'psa' => 'PSA', 'nik' => 'NIK', 'level_eksis' => 'Level Eksis', 'tanggal_level' => 'Tanggal Level', 'tanggal_mulai_kerja' => 'Tanggal Mulai Kerja', 'status_karyawan' => 'Status Karyawan', 'no_sk_kartap' => 'Nomor SK Pengangkatan KARTAP',
+			'tanggal_kartap' => 'Tanggal Kartap', 'no_sk_promut' => 'No SK PROMUT', 'tanggal_promut' => 'Tanggal PROMUT', 'no_kontrak' => 'Nomor Kontrak', 'mli_kontrak' => 'MLI Kontrak', 'end_kontrak' => 'End Kontrak', 'status_nikah' => 'Status Nikah', 'tanggal_nikah' => 'Tanggal Nikah', 'tang_kel' => 'Tang Kel', 'no_kk' => 'No KK',
+			'nama_suami_or_istri' => 'Nama Pasangan', 'nama_anak_1' => 'Nama Anak 1', 'nama_anak_2' => 'Nama Anak 2', 'nama_anak_3' => 'Nama Anak 3', 'nama_ayah_kandung' => 'Nama Ayah', 'nama_ibu_kandung' => 'Nama Ibu', 'no_bpjs_kes' => 'Nomor BPJS Kesehatan', 'no_bpjs_ket' => 'Nomor BPJS Ketenagakerjaan', 'npwp' => 'No NPWP',
+			'nama_bank' => 'Nama Bank', 'no_rekening' => 'No Rekening', 'nama_rekening' => 'Nama Rekening', 'nama_lengkap' => 'Nama Lengkap', 'tempat_lahir' => 'Tempat Lahir', 'tanggal_lahir' => 'Tanggal Lahir', 'agama' => 'Agama', 'sex' => 'Jenis Kelamin', 'gol_darah' => 'Golongan Darah', 'nomor_ktp' => 'Nomor KTP', 'email_telpro' => 'Email Telpro',	'other_email' => 'Email Lain', 'alamat' => 'Alamat', 'rt_rw' => 'RT/RW',
+			'des_kel' => 'Desa/Kelurahan', 'kec' => 'Kecamatan', 'kab_kot' => 'Kabupaten/Kota', 'prov' => 'Provinsi',  'kode_pos' => 'Kode Pos', 'no_hp' => 'no HP'
 		);
 
-		$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data);
-		redirect(base_url('pegawai'));
+		// mengganti value dari array result menjadi array hoho
+		$ar = array();
+		foreach ($result as $key) {
+			array_push($ar,$hoho[$key]);
+		}
+
+		foreach ($result2 as $key => $number) {
+			if(!isset($result2[$key])){
+				$result2[$key] = 'Kosong';
+			}
+		}
+		if(count($result)>0){
+			$data['log'] = array(
+				'id_pegawai'			=> $this->session->userdata('id'),
+						'db_index'		=> implode(",", $ar),
+						'deskripsi'		=> implode(",", $result2),
+						'link'				=> NULL,
+						'updated_at'	=> mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'))
+			);
+
+			$this->Log_history_model->create($data['log']);
+			$data['baru']['updated_at'] =	mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'));
+			$this->Data_Pegawai_model->update($this->session->userdata('id'),$data['baru']);
+			redirect(base_url('pegawai'));
+		}else{
+			redirect(base_url('pegawai'));
+		}
 	}
 
 	function input_data_pekerjaan()
@@ -224,7 +294,7 @@ class Pegawai extends CI_Controller
 		$mli_kontrak = $this->input->post('mli_kontrak');
 		$end_kontrak = $this->input->post('end_kontrak');
 
-		$data = array(
+		$data['baru'] = array(
         'nik' => $nik,
         'nama_posisi' => $nama_posisi,
         'lokasi_kerja' => $lokasi_kerja,
@@ -240,12 +310,54 @@ class Pegawai extends CI_Controller
         'tanggal_promut' => $tanggal_promut,
         'no_kontrak' => $no_kontrak,
         'mli_kontrak' => $mli_kontrak,
-        'end_kontrak' => $end_kontrak,
-		'updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'))
+        'end_kontrak' => $end_kontrak
 		);
 
-		$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data);
-		redirect(base_url('pegawai'));
+		$data['lama'] = $this->Data_Pegawai_model->get_single_only_rowarray($this->session->userdata('id'));
+
+		// bandingkan
+		$set = array_diff_assoc($data['baru'],$data['lama']);
+
+		// result sebagai key
+		$result=array_keys($set);
+		// result2 sebagai value
+		$result2=array_values($set);
+
+		$hoho = array(
+			'nama_posisi' => "Nama Posisi", 'lokasi_kerja' => 'Lokasi Kerja', 'unit_kerja' => 'Unit Kerja', 'psa' => 'PSA', 'nik' => 'NIK', 'level_eksis' => 'Level Eksis', 'tanggal_level' => 'Tanggal Level', 'tanggal_mulai_kerja' => 'Tanggal Mulai Kerja', 'status_karyawan' => 'Status Karyawan', 'no_sk_kartap' => 'Nomor SK Pengangkatan KARTAP',
+			'tanggal_kartap' => 'Tanggal Kartap', 'no_sk_promut' => 'No SK PROMUT', 'tanggal_promut' => 'Tanggal PROMUT', 'no_kontrak' => 'Nomor Kontrak', 'mli_kontrak' => 'MLI Kontrak', 'end_kontrak' => 'End Kontrak', 'status_nikah' => 'Status Nikah', 'tanggal_nikah' => 'Tanggal Nikah', 'tang_kel' => 'Tang Kel', 'no_kk' => 'No KK',
+			'nama_suami_or_istri' => 'Nama Pasangan', 'nama_anak_1' => 'Nama Anak 1', 'nama_anak_2' => 'Nama Anak 2', 'nama_anak_3' => 'Nama Anak 3', 'nama_ayah_kandung' => 'Nama Ayah', 'nama_ibu_kandung' => 'Nama Ibu', 'no_bpjs_kes' => 'Nomor BPJS Kesehatan', 'no_bpjs_ket' => 'Nomor BPJS Ketenagakerjaan', 'npwp' => 'No NPWP',
+			'nama_bank' => 'Nama Bank', 'no_rekening' => 'No Rekening', 'nama_rekening' => 'Nama Rekening', 'nama_lengkap' => 'Nama Lengkap', 'tempat_lahir' => 'Tempat Lahir', 'tanggal_lahir' => 'Tanggal Lahir', 'agama' => 'Agama', 'sex' => 'Jenis Kelamin', 'gol_darah' => 'Golongan Darah', 'nomor_ktp' => 'Nomor KTP', 'email_telpro' => 'Email Telpro',	'other_email' => 'Email Lain', 'alamat' => 'Alamat', 'rt_rw' => 'RT/RW',
+			'des_kel' => 'Desa/Kelurahan', 'kec' => 'Kecamatan', 'kab_kot' => 'Kabupaten/Kota', 'prov' => 'Provinsi',  'kode_pos' => 'Kode Pos', 'no_hp' => 'no HP'
+		);
+
+		// mengganti value dari array result menjadi array hoho
+		$ar = array();
+		foreach ($result as $key) {
+			array_push($ar,$hoho[$key]);
+		}
+
+		foreach ($result2 as $key => $number) {
+			if(!isset($result2[$key])){
+				$result2[$key] = 'Kosong';
+			}
+		}
+		if(count($result)>0){
+			$data['log'] = array(
+				'id_pegawai'			=> $this->session->userdata('id'),
+						'db_index'		=> implode(",", $ar),
+						'deskripsi'		=> implode(",", $result2),
+						'link'				=> NULL,
+						'updated_at'	=> mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'))
+			);
+
+			$this->Log_history_model->create($data['log']);
+			$data['baru']['updated_at'] =	mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'));
+			$this->Data_Pegawai_model->update($this->session->userdata('id'),$data['baru']);
+			redirect(base_url('pegawai'));
+		}else{
+			redirect(base_url('pegawai'));
+		}
 	}
 
 	function input_data_lainnya()
@@ -257,18 +369,60 @@ class Pegawai extends CI_Controller
 		$no_rekening = $this->input->post('no_rekening');
 		$nama_rekening = $this->input->post('nama_rekening');
 
-		$data = array(
+		$data['baru'] = array(
         'no_bpjs_kes' => $no_bpjs_kes,
         'no_bpjs_ket' => $no_bpjs_ket,
         'npwp' => $npwp,
         'nama_bank' => $nama_bank,
         'no_rekening' => $no_rekening,
-        'nama_rekening' => $nama_rekening,
-		'updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'))
+        'nama_rekening' => $nama_rekening
 		);
 
-		$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data);
-		redirect(base_url('pegawai'));
+		$data['lama'] = $this->Data_Pegawai_model->get_single_only_rowarray($this->session->userdata('id'));
+
+		// bandingkan
+		$set = array_diff_assoc($data['baru'],$data['lama']);
+
+		// result sebagai key
+		$result=array_keys($set);
+		// result2 sebagai value
+		$result2=array_values($set);
+
+		$hoho = array(
+			'nama_posisi' => "Nama Posisi", 'lokasi_kerja' => 'Lokasi Kerja', 'unit_kerja' => 'Unit Kerja', 'psa' => 'PSA', 'nik' => 'NIK', 'level_eksis' => 'Level Eksis', 'tanggal_level' => 'Tanggal Level', 'tanggal_mulai_kerja' => 'Tanggal Mulai Kerja', 'status_karyawan' => 'Status Karyawan', 'no_sk_kartap' => 'Nomor SK Pengangkatan KARTAP',
+			'tanggal_kartap' => 'Tanggal Kartap', 'no_sk_promut' => 'No SK PROMUT', 'tanggal_promut' => 'Tanggal PROMUT', 'no_kontrak' => 'Nomor Kontrak', 'mli_kontrak' => 'MLI Kontrak', 'end_kontrak' => 'End Kontrak', 'status_nikah' => 'Status Nikah', 'tanggal_nikah' => 'Tanggal Nikah', 'tang_kel' => 'Tang Kel', 'no_kk' => 'No KK',
+			'nama_suami_or_istri' => 'Nama Pasangan', 'nama_anak_1' => 'Nama Anak 1', 'nama_anak_2' => 'Nama Anak 2', 'nama_anak_3' => 'Nama Anak 3', 'nama_ayah_kandung' => 'Nama Ayah', 'nama_ibu_kandung' => 'Nama Ibu', 'no_bpjs_kes' => 'Nomor BPJS Kesehatan', 'no_bpjs_ket' => 'Nomor BPJS Ketenagakerjaan', 'npwp' => 'No NPWP',
+			'nama_bank' => 'Nama Bank', 'no_rekening' => 'No Rekening', 'nama_rekening' => 'Nama Rekening', 'nama_lengkap' => 'Nama Lengkap', 'tempat_lahir' => 'Tempat Lahir', 'tanggal_lahir' => 'Tanggal Lahir', 'agama' => 'Agama', 'sex' => 'Jenis Kelamin', 'gol_darah' => 'Golongan Darah', 'nomor_ktp' => 'Nomor KTP', 'email_telpro' => 'Email Telpro',	'other_email' => 'Email Lain', 'alamat' => 'Alamat', 'rt_rw' => 'RT/RW',
+			'des_kel' => 'Desa/Kelurahan', 'kec' => 'Kecamatan', 'kab_kot' => 'Kabupaten/Kota', 'prov' => 'Provinsi',  'kode_pos' => 'Kode Pos', 'no_hp' => 'no HP'
+		);
+
+		// mengganti value dari array result menjadi array hoho
+		$ar = array();
+		foreach ($result as $key) {
+			array_push($ar,$hoho[$key]);
+		}
+
+		foreach ($result2 as $key => $number) {
+			if(!isset($result2[$key])){
+				$result2[$key] = 'Kosong';
+			}
+		}
+		if(count($result)>0){
+			$data['log'] = array(
+				'id_pegawai'			=> $this->session->userdata('id'),
+						'db_index'		=> implode(",", $ar),
+						'deskripsi'		=> implode(",", $result2),
+						'link'				=> NULL,
+						'updated_at'	=> mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'))
+			);
+
+			$this->Log_history_model->create($data['log']);
+			$data['baru']['updated_at'] =	mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'));
+			$this->Data_Pegawai_model->update($this->session->userdata('id'),$data['baru']);
+			redirect(base_url('pegawai'));
+		}else{
+			redirect(base_url('pegawai'));
+		}
 	}
 
 	function input_pendidikan()
