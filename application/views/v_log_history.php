@@ -61,10 +61,17 @@ $tgl_bfr = "";
                                           echo '<td>' . $a . '</td>';
                                           $text = explode(",",$log[$key]->db_index);
                                           $text2 = explode(",",$log[$key]->deskripsi);
+
                                           echo '<td>';
-                                          for ($i=0; $i < count($text); $i++) {
-                                            echo 'Data tabel ' . $text[$i] . ' diupdate menjadi ' . $text2[$i];
-                                            echo '<br>';
+                                          if($log[$key]->deskripsi != '157kosong214' && $log[$key]->deskripsi != '621lamp942'){
+                                            for ($i=0; $i < count($text); $i++) {
+                                              echo 'Data tabel ' . $text[$i] . ' diupdate menjadi ' . $text2[$i];
+                                              echo '<br>';
+                                            }
+                                          } else if($log[$key]->deskripsi == '621lamp942'){
+                                            echo '<a href="'. base_url() . '../assets/upload/'. substr($log[$key]->db_index,5) . '/' . $log[$key]->link.'">' . $log[$key]->db_index . '</a> telah ditambahkan!';
+                                          } else {
+                                            echo 'Tabel ' . $log[$key]->db_index . ' telah ditambahkan!';
                                           }
                                           echo '</td>';
                                           echo '</tr>';

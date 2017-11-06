@@ -434,7 +434,7 @@ class Pegawai extends CI_Controller
 		$jurusan = $this->input->post('jurusan');
 		$tahun_lulus = $this->input->post('tahun_lulus');
 
-		$data = array(
+		$data['baru'] = array(
         'id_pegawai' => $this->session->userdata('id'),
         'jenjang' => $jenjang,
         'institusi' => $institusi,
@@ -442,7 +442,18 @@ class Pegawai extends CI_Controller
         'tahun_lulus' => $tahun_lulus
 		);
 
-		$result = $this->Pendidikan_model->create($data);
+		$data['log'] = array(
+					'id_pegawai'	=> $this->session->userdata('id'),
+					'db_index'		=> 'Data Pendidikan',
+					'deskripsi'		=> '157kosong214',
+					'link'				=> NULL,
+					'updated_at'	=> mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'))
+		);
+
+		$this->Log_history_model->create($data['log']);
+
+		$data['baru']['updated_at'] =	mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'));
+		$result = $this->Pendidikan_model->create($data['baru']);
 		redirect(base_url('pegawai'));
 	}
 
@@ -453,7 +464,7 @@ class Pegawai extends CI_Controller
 		$tanggal_selesai = $this->input->post('tanggal_selesai');
 		$nama_penyelenggara = $this->input->post('nama_penyelenggara');
 
-		$data = array(
+		$data['baru'] = array(
         'id_pegawai' => $this->session->userdata('id'),
         'nama_pelatihan' => $nama_pelatihan,
         'tanggal_mulai' => $tanggal_mulai,
@@ -461,7 +472,18 @@ class Pegawai extends CI_Controller
         'nama_penyelenggara' => $nama_penyelenggara
 		);
 
-		$result = $this->Pelatihan_model->create($data);
+		$data['log'] = array(
+					'id_pegawai'	=> $this->session->userdata('id'),
+					'db_index'		=> 'Data Pelatihan',
+					'deskripsi'		=> '157kosong214',
+					'link'				=> NULL,
+					'updated_at'	=> mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'))
+		);
+
+		$this->Log_history_model->create($data['log']);
+
+		$data['baru']['updated_at'] =	mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'));
+		$result = $this->Pelatihan_model->create($data['baru']);
 		redirect(base_url('pegawai'));
 		// $data_pelatihan = array(
   //       'id_pegawai' => $this->session->userdata('id'),
@@ -489,9 +511,20 @@ class Pegawai extends CI_Controller
 		$this->load->library('upload', $config);
 
 		if($this->upload->do_upload('lamp_ktp')){
-			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
+			$data['baru'] = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'lamp_ktp' => $config['file_name'].$this->upload->data('file_ext'));
-			$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data);
+
+			$data['log'] = array(
+						'id_pegawai'	=> $this->session->userdata('id'),
+						'db_index'		=> 'Lamp KTP',
+						'deskripsi'		=> '621lamp942',
+						'link'				=> $data['baru']['lamp_ktp'],
+						'updated_at'	=> mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'))
+			);
+
+			$this->Log_history_model->create($data['log']);
+
+			$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data['baru']);
 			redirect(base_url('pegawai'));
 		}
 
@@ -525,9 +558,20 @@ class Pegawai extends CI_Controller
 		$this->load->library('upload', $config);
 
 		if($this->upload->do_upload('lamp_sk_kartap')){
-			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
+			$data['baru'] = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'lamp_sk_kartap' => $config['file_name'].$this->upload->data('file_ext'));
-			$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data);
+
+			$data['log'] = array(
+						'id_pegawai'	=> $this->session->userdata('id'),
+						'db_index'		=> 'Lamp sk_kartap',
+						'deskripsi'		=> '621lamp942',
+						'link'				=> $data['baru']['lamp_sk_kartap'],
+						'updated_at'	=> mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'))
+			);
+
+			$this->Log_history_model->create($data['log']);
+
+			$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data['baru']);
 			redirect(base_url('pegawai'));
 		}
 	}
@@ -541,9 +585,20 @@ class Pegawai extends CI_Controller
 		$this->load->library('upload', $config);
 
 		if($this->upload->do_upload('lamp_sk_promut')){
-			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
+			$data['baru'] = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'lamp_sk_promut' => $config['file_name'].$this->upload->data('file_ext'));
-			$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data);
+
+			$data['log'] = array(
+						'id_pegawai'	=> $this->session->userdata('id'),
+						'db_index'		=> 'Lamp sk_promut',
+						'deskripsi'		=> '621lamp942',
+						'link'				=> $data['baru']['lamp_sk_promut'],
+						'updated_at'	=> mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'))
+			);
+
+			$this->Log_history_model->create($data['log']);
+
+			$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data['baru']);
 			redirect(base_url('pegawai'));
 		}
 	}
@@ -557,9 +612,20 @@ class Pegawai extends CI_Controller
 		$this->load->library('upload', $config);
 
 		if($this->upload->do_upload('lamp_kontrak')){
-			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
+			$data['baru'] = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'lamp_kontrak' => $config['file_name'].$this->upload->data('file_ext'));
-			$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data);
+
+			$data['log'] = array(
+										'id_pegawai'	=> $this->session->userdata('id'),
+										'db_index'		=> 'Lamp lamp_kontrak',
+										'deskripsi'		=> '621lamp942',
+										'link'				=> $data['baru']['lamp_kontrak'],
+										'updated_at'	=> mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'))
+							);
+
+			$this->Log_history_model->create($data['log']);
+
+			$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data['baru']);
 			redirect(base_url('pegawai'));
 		}
 	}
@@ -573,9 +639,20 @@ class Pegawai extends CI_Controller
 		$this->load->library('upload', $config);
 
 		if($this->upload->do_upload('lamp_buku_nikah')){
-			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
+			$data['baru'] = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'lamp_buku_nikah' => $config['file_name'].$this->upload->data('file_ext'));
-			$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data);
+
+			$data['log'] = array(
+				'id_pegawai'	=> $this->session->userdata('id'),
+				'db_index'		=> 'Lamp buku_nikah',
+				'deskripsi'		=> '621lamp942',
+				'link'				=> $data['baru']['lamp_buku_nikah'],
+				'updated_at'	=> mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'))
+			);
+
+			$this->Log_history_model->create($data['log']);
+
+			$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data['baru']);
 			redirect(base_url('pegawai'));
 		}
 	}
@@ -589,9 +666,20 @@ class Pegawai extends CI_Controller
 		$this->load->library('upload', $config);
 
 		if($this->upload->do_upload('lamp_kk')){
-			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
+			$data['baru'] = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'lamp_kk' => $config['file_name'].$this->upload->data('file_ext'));
-			$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data);
+
+			$data['log'] = array(
+				'id_pegawai'	=> $this->session->userdata('id'),
+				'db_index'		=> 'Lamp kk',
+				'deskripsi'		=> '621lamp942',
+				'link'				=> $data['baru']['lamp_kk'],
+				'updated_at'	=> mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'))
+			);
+
+			$this->Log_history_model->create($data['log']);
+
+			$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data['baru']);
 			redirect(base_url('pegawai'));
 		}
 	}
@@ -605,9 +693,20 @@ class Pegawai extends CI_Controller
 		$this->load->library('upload', $config);
 
 		if($this->upload->do_upload('lamp_ktp_pasangan')){
-			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
+			$data['baru'] = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'lamp_ktp_pasangan' => $config['file_name'].$this->upload->data('file_ext'));
-			$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data);
+
+			$data['log'] = array(
+				'id_pegawai'	=> $this->session->userdata('id'),
+				'db_index'		=> 'Lamp ktp_pasangan',
+				'deskripsi'		=> '621lamp942',
+				'link'				=> $data['baru']['lamp_ktp_pasangan'],
+				'updated_at'	=> mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'))
+			);
+
+			$this->Log_history_model->create($data['log']);
+
+			$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data['baru']);
 			redirect(base_url('pegawai'));
 		}
 	}
@@ -621,9 +720,20 @@ class Pegawai extends CI_Controller
 		$this->load->library('upload', $config);
 
 		if($this->upload->do_upload('lamp_akta_1')){
-			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
+			$data['baru'] = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'lamp_akta_1' => $config['file_name'].$this->upload->data('file_ext'));
-			$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data);
+
+		$data['log'] = array(
+			'id_pegawai'	=> $this->session->userdata('id'),
+			'db_index'		=> 'Lamp akta_1',
+			'deskripsi'		=> '621lamp942',
+			'link'				=> $data['baru']['lamp_akta_1'],
+			'updated_at'	=> mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'))
+		);
+
+		$this->Log_history_model->create($data['log']);
+
+			$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data['baru']);
 			redirect(base_url('pegawai'));
 		}
 	}
@@ -637,9 +747,20 @@ class Pegawai extends CI_Controller
 		$this->load->library('upload', $config);
 
 		if($this->upload->do_upload('lamp_akta_2')){
-			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
+			$data['baru'] = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'lamp_akta_2' => $config['file_name'].$this->upload->data('file_ext'));
-			$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data);
+
+			$data['log'] = array(
+				'id_pegawai'	=> $this->session->userdata('id'),
+				'db_index'		=> 'Lamp akta_2',
+				'deskripsi'		=> '621lamp942',
+				'link'				=> $data['baru']['lamp_akta_2'],
+				'updated_at'	=> mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'))
+			);
+
+			$this->Log_history_model->create($data['log']);
+
+			$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data['baru']);
 			redirect(base_url('pegawai'));
 		}
 	}
@@ -653,9 +774,20 @@ class Pegawai extends CI_Controller
 		$this->load->library('upload', $config);
 
 		if($this->upload->do_upload('lamp_akta_3')){
-			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
+			$data['baru'] = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'lamp_akta_3' => $config['file_name'].$this->upload->data('file_ext'));
-			$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data);
+
+			$data['log'] = array(
+				'id_pegawai'	=> $this->session->userdata('id'),
+				'db_index'		=> 'Lamp akta_3',
+				'deskripsi'		=> '621lamp942',
+				'link'				=> $data['baru']['lamp_akta_3'],
+				'updated_at'	=> mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'))
+			);
+
+			$this->Log_history_model->create($data['log']);
+
+			$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data['baru']);
 			redirect(base_url('pegawai'));
 		}
 	}
@@ -669,9 +801,20 @@ class Pegawai extends CI_Controller
 		$this->load->library('upload', $config);
 
 		if($this->upload->do_upload('lamp_bpjs_kes')){
-			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
+			$data['baru'] = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'lamp_bpjs_kes' => $config['file_name'].$this->upload->data('file_ext'));
-			$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data);
+
+			$data['log'] = array(
+				'id_pegawai'	=> $this->session->userdata('id'),
+				'db_index'		=> 'Lamp bpjs_kes',
+				'deskripsi'		=> '621lamp942',
+				'link'				=> $data['baru']['lamp_bpjs_kes'],
+				'updated_at'	=> mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'))
+			);
+
+			$this->Log_history_model->create($data['log']);
+
+			$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data['baru']);
 			redirect(base_url('pegawai'));
 		}
 	}
@@ -685,9 +828,20 @@ class Pegawai extends CI_Controller
 		$this->load->library('upload', $config);
 
 		if($this->upload->do_upload('lamp_bpjs_tk')){
-			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
+			$data['baru'] = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'lamp_bpjs_tk' => $config['file_name'].$this->upload->data('file_ext'));
-			$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data);
+
+			$data['log'] = array(
+				'id_pegawai'	=> $this->session->userdata('id'),
+				'db_index'		=> 'Lamp bpjs_ket',
+				'deskripsi'		=> '621lamp942',
+				'link'				=> $data['baru']['lamp_bpjs_tk'],
+				'updated_at'	=> mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'))
+			);
+
+			$this->Log_history_model->create($data['log']);
+
+			$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data['baru']);
 			redirect(base_url('pegawai'));
 		}
 	}
@@ -701,9 +855,20 @@ class Pegawai extends CI_Controller
 		$this->load->library('upload', $config);
 
 		if($this->upload->do_upload('lamp_kartu_npwp')){
-			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
+			$data['baru'] = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'lamp_kartu_npwp' => $config['file_name'].$this->upload->data('file_ext'));
-			$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data);
+
+			$data['log'] = array(
+				'id_pegawai'	=> $this->session->userdata('id'),
+				'db_index'		=> 'Lamp NPWP',
+				'deskripsi'		=> '621lamp942',
+				'link'				=> $data['baru']['lamp_kartu_npwp'],
+				'updated_at'	=> mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'))
+			);
+
+			$this->Log_history_model->create($data['log']);
+
+			$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data['baru']);
 			redirect(base_url('pegawai'));
 		}
 	}
@@ -717,9 +882,20 @@ class Pegawai extends CI_Controller
 		$this->load->library('upload', $config);
 
 		if($this->upload->do_upload('lamp_buku_rekening')){
-			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
+			$data['baru'] = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'lamp_buku_rekening' => $config['file_name'].$this->upload->data('file_ext'));
-			$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data);
+
+			$data['log'] = array(
+				'id_pegawai'	=> $this->session->userdata('id'),
+				'db_index'		=> 'Lamp buku_rekening',
+				'deskripsi'		=> '621lamp942',
+				'link'				=> $data['baru']['lamp_buku_rekening'],
+				'updated_at'	=> mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'))
+			);
+
+			$this->Log_history_model->create($data['log']);
+
+			$result = $this->Data_Pegawai_model->update($this->session->userdata('id'),$data['baru']);
 			redirect(base_url('pegawai'));
 		}
 	}
@@ -733,8 +909,19 @@ class Pegawai extends CI_Controller
 		$this->load->library('upload', $config);
 
 		if($this->upload->do_upload('ijazah')){
-			$data = array('lamp_ijazah' => $config['file_name'].$this->upload->data('file_ext'));
-			$result = $this->Pendidikan_model->update($id,$data);
+			$data['baru'] = array('lamp_ijazah' => $config['file_name'].$this->upload->data('file_ext'));
+
+			$data['log'] = array(
+				'id_pegawai'	=> $this->session->userdata('id'),
+				'db_index'		=> 'Lamp pendidikan',
+				'deskripsi'		=> '621lamp942',
+				'link'				=> $data['baru']['lamp_ijazah'],
+				'updated_at'	=> mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'))
+			);
+
+			$this->Log_history_model->create($data['log']);
+
+			$result = $this->Pendidikan_model->update($id,$data['baru']);
 			redirect(base_url('pegawai'));
 		}
 	}
@@ -755,8 +942,19 @@ class Pegawai extends CI_Controller
 		$this->load->library('upload', $config);
 
 		if($this->upload->do_upload('sertifikat')){
-			$data = array('lampiran_pelatihan' => $config['file_name'].$this->upload->data('file_ext'));
-			$result = $this->Pelatihan_model->update($id,$data);
+			$data['baru'] = array('lampiran_pelatihan' => $config['file_name'].$this->upload->data('file_ext'));
+
+			$data['log'] = array(
+				'id_pegawai'	=> $this->session->userdata('id'),
+				'db_index'		=> 'Lamp pelatihan',
+				'deskripsi'		=> '621lamp942',
+				'link'				=> $data['baru']['lampiran_pelatihan'],
+				'updated_at'	=> mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'))
+			);
+
+			$this->Log_history_model->create($data['log']);
+
+			$result = $this->Pelatihan_model->update($id,$data['baru']);
 			redirect(base_url('pegawai'));
 		}
 	}
@@ -914,9 +1112,20 @@ class Pegawai extends CI_Controller
 		$this->load->library('upload', $config);
 
 		if($this->upload->do_upload('avatar_file')){
-			$data = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
+			$data['baru'] = array('updated_at' => mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar')),
 							'foto_ava' => $config['file_name'].$this->upload->data('file_ext'));
-			$result = $this->User_model->update($this->session->userdata('id'),$data);
+
+										$data['log'] = array(
+											'id_pegawai'	=> $this->session->userdata('id'),
+											'db_index'		=> 'Lamp foto_ava',
+											'deskripsi'		=> '621lamp942',
+											'link'				=> $data['baru']['foto_ava'],
+											'updated_at'	=> mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'))
+										);
+
+										$this->Log_history_model->create($data['log']);
+
+			$result = $this->User_model->update($this->session->userdata('id'),$data['baru']);
 			redirect(base_url('pegawai'));
 		}
 	}
