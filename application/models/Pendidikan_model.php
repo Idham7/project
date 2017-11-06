@@ -11,16 +11,20 @@ class Pendidikan_model extends CI_Model {
     public function create($data){
         if($this->db->insert('pendidikan',$data)){
             return true;
-        } 
+        }
         return false;
     }
 
     public function get_all(){
-        return $this->db->select('*')->from('pendidikan')->get()->result(); 
+        return $this->db->select('*')->from('pendidikan')->get()->result();
     }
 
     public function get_single($id){
         return $this->db->get_where('pendidikan',array('id'=>$id))->row();
+    }
+
+    public function get_single_only_rowarray($id){
+      return $this->db->get_where('pendidikan',array('id'=>$id))->row_array();
     }
 
     public function update($id,$data){

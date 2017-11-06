@@ -402,11 +402,13 @@ class Pegawai extends CI_Controller
 			array_push($ar,$hoho[$key]);
 		}
 
+		// mengisi variable yang kosong dengan nilai kosong
 		foreach ($result2 as $key => $number) {
 			if(!isset($result2[$key])){
 				$result2[$key] = 'Kosong';
 			}
 		}
+
 		if(count($result)>0){
 			$data['log'] = array(
 				'id_pegawai'			=> $this->session->userdata('id'),
@@ -762,7 +764,6 @@ class Pegawai extends CI_Controller
 	function open_lamp_pelatihan($id)
 	{
 		$data['data']=$this->Pelatihan_model->get_single($id);
-		$data['user'] = $this->User_model->get_single($id);
 		$this->load->view('v_input_lampiran_pelatihan',$data);
 	}
 
@@ -774,7 +775,7 @@ class Pegawai extends CI_Controller
 			$jurusan = $this->input->post('jurusan');
 			$tahun_lulus = $this->input->post('tahun_lulus');
 
-			$data = array(
+			$data['baru'] = array(
 	        'id_pegawai' => $this->session->userdata('id'),
 	        'jenjang' => $jenjang,
 	        'institusi' => $institusi,
@@ -782,11 +783,55 @@ class Pegawai extends CI_Controller
 	        'tahun_lulus' => $tahun_lulus
 			);
 
-			$result = $this->Pendidikan_model->update($id,$data);
-			redirect(base_url('pegawai'));
+			$data['lama'] = $this->Pendidikan_model->get_single_only_rowarray($id);
+
+			// bandingkan
+			$set = array_diff_assoc($data['baru'],$data['lama']);
+
+			// result sebagai key
+			$result=array_keys($set);
+			// result2 sebagai value
+			$result2=array_values($set);
+
+			$hoho = array(
+				'jenjang' => 'Jenjang',
+				'institusi' => 'Institusi',
+				'jurusan' => 'Jurusan',
+				'tahun_lulus' => 'Tahun Lulus'
+			);
+
+			// mengganti value dari array result menjadi array hoho
+			$ar = array();
+			foreach ($result as $key) {
+				array_push($ar,$hoho[$key]);
+			}
+
+			// mengisi variable yang kosong dengan nilai kosong
+			foreach ($result2 as $key => $number) {
+				if(!isset($result2[$key])){
+					$result2[$key] = 'Kosong';
+				}
+			}
+
+			if(count($result)>0){
+				$data['log'] = array(
+							'id_pegawai'	=> $this->session->userdata('id'),
+							'db_index'		=> implode(",", $ar),
+							'deskripsi'		=> implode(",", $result2),
+							'link'				=> NULL,
+							'updated_at'	=> mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'))
+				);
+
+				$this->Log_history_model->create($data['log']);
+
+				$data['baru']['updated_at'] =	mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'));
+				$result = $this->Pendidikan_model->update($id,$data['baru']);
+				redirect(base_url('pegawai'));
+			} else {
+				redirect(base_url('pegawai'));
+			}
 		} else {
 			$data['data']=$this->Pendidikan_model->get_single($id);
-			$data['user'] = $this->User_model->get_single($id);
 			$this->load->view('v_edit_pendidikan',$data);
 		}
 	}
@@ -799,7 +844,7 @@ class Pegawai extends CI_Controller
 			$tanggal_selesai = $this->input->post('tanggal_selesai');
 			$nama_penyelenggara = $this->input->post('nama_penyelenggara');
 
-			$data = array(
+			$data['baru'] = array(
 	        'id_pegawai' => $this->session->userdata('id'),
 	        'nama_pelatihan' => $nama_pelatihan,
 	        'tanggal_mulai' => $tanggal_mulai,
@@ -807,11 +852,55 @@ class Pegawai extends CI_Controller
 	        'nama_penyelenggara' => $nama_penyelenggara
 			);
 
-			$result = $this->Pelatihan_model->update($id,$data);
-			redirect(base_url('pegawai'));
+			$data['lama'] = $this->Pelatihan_model->get_single_only_rowarray($id);
+
+			// bandingkan
+			$set = array_diff_assoc($data['baru'],$data['lama']);
+
+			// result sebagai key
+			$result=array_keys($set);
+			// result2 sebagai value
+			$result2=array_values($set);
+
+			$hoho = array(
+				'nama_pelatihan' => 'Nama Pelatihan',
+				'tanggal_mulai' => 'Tanggal Mulai',
+				'tanggal_selesai' => 'Tanggal Selesai',
+				'nama_penyelenggara' => 'Nama Penyelenggara'
+			);
+
+			// mengganti value dari array result menjadi array hoho
+			$ar = array();
+			foreach ($result as $key) {
+				array_push($ar,$hoho[$key]);
+			}
+
+			// mengisi variable yang kosong dengan nilai kosong
+			foreach ($result2 as $key => $number) {
+				if(!isset($result2[$key])){
+					$result2[$key] = 'Kosong';
+				}
+			}
+
+			if(count($result)>0){
+				$data['log'] = array(
+							'id_pegawai'	=> $this->session->userdata('id'),
+							'db_index'		=> implode(",", $ar),
+							'deskripsi'		=> implode(",", $result2),
+							'link'				=> NULL,
+							'updated_at'	=> mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'))
+				);
+
+				$this->Log_history_model->create($data['log']);
+
+				$data['baru']['updated_at'] =	mdate('%Y-%m-%d %H:%i:%s',now('Asia/Makassar'));
+				$result = $this->Pelatihan_model->update($id,$data['baru']);
+				redirect(base_url('pegawai'));
+			} else {
+				redirect(base_url('pegawai'));
+			}
 		} else {
 			$data['data']=$this->Pelatihan_model->get_single($id);
-			$data['user'] = $this->User_model->get_single($id);
 			$this->load->view('v_edit_pelatihan',$data);
 		}
 	}

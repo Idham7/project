@@ -11,16 +11,20 @@ class Pelatihan_model extends CI_Model {
     public function create($data){
         if($this->db->insert('pelatihan',$data)){
             return true;
-        } 
+        }
         return false;
     }
 
     public function get_all(){
-        return $this->db->select('*')->from('pelatihan')->get()->result(); 
+        return $this->db->select('*')->from('pelatihan')->get()->result();
     }
 
     public function get_single($id){
         return $this->db->get_where('pelatihan',array('id'=>$id))->row();
+    }
+
+    public function get_single_only_rowarray($id){
+      return $this->db->get_where('pelatihan',array('id'=>$id))->row_array();
     }
 
     public function update($id,$data){
